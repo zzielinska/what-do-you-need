@@ -23,7 +23,7 @@ class AnnouncementsPage extends React.Component {
 
   let announcementsList = <ActivityIndicator size="large" color="#0000ff" />
   if (this.state.announcements) {
-    announcementsList = this.state.announcements.map(announcement => {
+    announcementsList = Object.values(this.state.announcements).map(announcement => {
       if (announcement.city === route.params.city) {
         return (
           <Announcement

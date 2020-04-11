@@ -1,0 +1,4 @@
+1. dodanie scrollowania do list
+2. ogarniecie logowania
+3. ograniczenia dla niezalogowanego
+4. dodawanie do bazy z niezalogowanego

@@ -10,6 +10,7 @@ class Announcement extends React.Component {
             <Text onPress={() => navigation.navigate('AnnouncementInfo', {...this.props})}>{this.props.title}</Text>
             <Text>{this.props.location}</Text>
             <Text>{this.props.needs}</Text>
+            <Text>Remove your need</Text>
       </View>
     );
 }
