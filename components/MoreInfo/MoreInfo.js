@@ -14,7 +14,7 @@ const OpenURLButton = ({ url, children }) => {
     }
   }, [url]);
 
-  return <Button title={children} onPress={handlePress} />;
+  return <Button color='#607282' title={children} onPress={handlePress} />;
 };
 
 export default class AnnouncementInfo extends React.Component {
@@ -25,11 +25,11 @@ export default class AnnouncementInfo extends React.Component {
             <View style={styles.container}>
             <Text style={styles.title}>More Info!</Text>
             <View style={styles.box}>
-            <Text>If you want to know more about situation in your country in case of COVID-19 check this!</Text>
+            <Text style={styles.text}>If you want to know more about situation in your country in case of COVID-19 check this!</Text>
             <OpenURLButton url={infoLink}>Government oficial info</OpenURLButton>
             </View>
             <View style={styles.box}>
-            <Text>If you want to contact with me it will be pleasure to meet you!</Text>
+            <Text style={styles.text}>If you want to contact with me it will be pleasure to meet you!</Text>
             <OpenURLButton url={fbLink}>Meet me on Facebook!</OpenURLButton>
             </View>
         </View>
@@ -51,6 +51,13 @@ const styles = StyleSheet.create({
       fontSize:30,
       color:"#fb5b5a",
       marginBottom:40
+    },
+    text:{
+      fontWeight:"bold",
+      textAlign: "center",
+      fontSize:14,
+      color:"black",
+      marginBottom:10
     },
     box:{
         width: '90%',

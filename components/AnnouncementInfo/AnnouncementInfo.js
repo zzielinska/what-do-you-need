@@ -12,6 +12,7 @@ class AnnouncementInfo extends React.Component {
             <View style={styles.container}>
             <Text>{route.params.title}</Text>
             <Text>{route.params.location}</Text>
+            <Text>{route.params.phoneNumber}</Text>
             <Text>{route.params.needs}</Text>
         </View>
       </View>

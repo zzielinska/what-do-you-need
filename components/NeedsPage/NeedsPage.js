@@ -1,39 +1,57 @@
 import * as React from 'react';
 import axios from 'axios';
-import { View, StyleSheet, ActivityIndicator, Text, FlatList } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
 import Announcement from '../Announcement/Announcement';
 import DrawerIcon from '../DrawerIcon/DrawerIcon';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 class NeedsPage extends React.Component {
 
   state = {
-    announcements: null
+    announcements: null,
+    deletedAnn: [],
   }
 
-  componentDidMount() {
+  getAnnoncements = () => {
     axios.get('https://what-do-you-need-f9f98.firebaseio.com/myAnnouncements.json')
       .then(response => {
         this.setState({announcements: response.data});
       });
   }
 
+  removeNeed = (choosenKey) => {
+    const newDeletedKeys = this.state.deletedAnn.concat(choosenKey);
+    this.setState({deletedAnn: newDeletedKeys});
+  }
+
+  componentDidMount() {
+    this.getAnnoncements();
+  }
+
   render() {
-  const { navigation } = this.props;
+  const { navigation, route } = this.props;
+
+  if (route.params.needAdded){
+    this.getAnnoncements();
+  }
 
   let announcementsList =  <ActivityIndicator size="large" color="#0000ff" />
   if (this.state.announcements) {
-    announcementsList = Object.values(this.state.announcements).map(announcement => {
+    announcementsList = Object.entries(this.state.announcements).map(([key, value]) => {
+      if (!this.state.deletedAnn.includes(key)) {
         return (
+          <React.Fragment>
           <Announcement
-            key={announcement.title}
-            id={announcement.id}
-            title={announcement.title}
-            location={announcement.location}
-            needs={announcement.needs}
+            key={key}
+            title={value.title}
+            location={value.location}
+            needs={value.needs}
           />
+          <Text onPress={() => this.removeNeed(key)}>Remove your need</Text>
+          </React.Fragment>
         )
+      }
       })
   }
 
@@ -67,6 +85,7 @@ const styles = StyleSheet.create({
 
 export default function(props) {
   const navigation = useNavigation();
+  const route = useRoute();
 
-  return <NeedsPage {...props} navigation={navigation} />;
+  return <NeedsPage {...props} route={route} navigation={navigation} />;
 }

@@ -2,35 +2,33 @@ import * as React from 'react';
 import axios from 'axios';
 import { View, StyleSheet, TouchableOpacity, Picker, TextInput, Text } from 'react-native';
 import DrawerIcon from '../../DrawerIcon/DrawerIcon';
+import { useNavigation } from '@react-navigation/native';
 // import { useRoute } from '@react-navigation/native';
 
-export default class AddNeed extends React.Component {
+class AddNeed extends React.Component {
 
   state = {
     title: null,
     location: null,
     needs: "Groceries",
     city: null,
-    number: null,
+    phoneNumber: null,
+    needAdded: false
   }
 
   addHandler = () => {
-    console.log('jhkhhihu')
     axios.post('https://what-do-you-need-f9f98.firebaseio.com/myAnnouncements.json', {...this.state})
-      .then(response => {
-        return response;
+      .then(() => {
+        this.setState({needAdded:true})
       });
   }
 
-//   componentDidMount() {
-//     axios.get('https://what-do-you-need-f9f98.firebaseio.com/announcements.json')
-//       .then(response => {
-//         this.setState({announcements: response.data});
-//       });
-//   }
-
   render() {
-  // const { route } = this.props;
+  const { navigation } = this.props;
+
+  if(this.state.needAdded) {
+    navigation.navigate('Your needs!', {needAdded: true})
+  }
 
     return (
         <View style={{height:'100%'}}>
@@ -50,6 +48,13 @@ export default class AddNeed extends React.Component {
             placeholder="Location..." 
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({location:text})}/>
+         </View>
+         <View style={styles.inputView} >
+            <TextInput  
+            style={styles.inputText}
+            placeholder="Phone Number..." 
+            placeholderTextColor="#003f5c"
+            onChangeText={text => this.setState({phoneNumber:text})}/>
          </View>
          <View style={styles.inputView} >
             <TextInput  
@@ -95,7 +100,7 @@ const styles = StyleSheet.create({
       width:"70%",
       backgroundColor:"#465881",
       borderRadius:20,
-      height:50,
+      height:40,
       marginBottom:10,
       justifyContent:"center",
       padding:20
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
       width:"50%",
       backgroundColor:"#fb5b5a",
       borderRadius:20,
-      height:50,
+      height:40,
       alignItems:"center",
       justifyContent:"center",
       marginTop:40,
@@ -127,8 +132,8 @@ const styles = StyleSheet.create({
     },
 });
 
-// export default function(props) {
-//   const route = useRoute();
+export default function(props) {
+  const navigation = useNavigation();
 
-//   return <AddNeed {...props} route={route} />;
-// }
+  return <AddNeed {...props} navigation={navigation} />;
+}

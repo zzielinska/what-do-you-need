@@ -1,4 +1,6 @@
 1. dodanie scrollowania do list
 2. ogarniecie logowania
 3. ograniczenia dla niezalogowanego
-4. dodawanie do bazy z niezalogowanego
+4. dodawanie do bazy z telefonu - DONE
+5. dodanie telefonu do formularza i info o ogłoszeniu - DONE
+6. usuwanie swoich ogłoszeń - DONE
