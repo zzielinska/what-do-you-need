@@ -4,7 +4,6 @@ import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
 import Announcement from '../Announcement/Announcement';
 import DrawerIcon from '../DrawerIcon/DrawerIcon';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { ScrollView } from 'react-native-gesture-handler';
 
 class NeedsPage extends React.Component {
 
@@ -54,14 +53,20 @@ class NeedsPage extends React.Component {
       }
       })
   }
+  let yourPage = <Text style={styles.btn} onPress={() => navigation.navigate('Log in!')}>Log In!</Text>
+
+  if(this.state.isLogged) {
+    yourPage = (
+    <View>
+      {announcementsList}
+      <Text style={styles.btn} onPress={() => navigation.navigate('Add Need')}>Add need</Text>
+    </View>)
+  }
 
     return (
       <View>
         <DrawerIcon />
-        <ScrollView>
-        {announcementsList}
-        <Text style={styles.btn} onPress={() => navigation.navigate('Add Need')}>Add need</Text>
-        </ScrollView>
+        {yourPage}
       </View>
     );
   }

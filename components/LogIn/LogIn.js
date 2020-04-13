@@ -8,7 +8,7 @@ class LogIn extends React.Component {
         email:"",
         password:"",
         isEmailValid: true,
-        isLoged: false,
+        isLogged: false,
       }
 
       validateEmail = email => {
@@ -17,10 +17,10 @@ class LogIn extends React.Component {
 
       loginHandler = () => {
         const isValid = this.validateEmail(this.state.email);
-        this.setState({isEmailValid: isValid});
+        this.setState({isEmailValid: isValid, isLogged: isValid});
         if (isValid) {
           //todo:zrobic logowanie w firebase
-          this.props.navigation.goBack({...this.props})
+          this.props.navigation.navigate('Your needs!', {isLogged: true})
         }
       }
 
@@ -29,7 +29,7 @@ class LogIn extends React.Component {
         this.setState({isEmailValid: isValid});
         if (isValid) {
           //todo:zrobic logowanie w firebase
-          this.setState({isLoged: isValid});
+          this.setState({isLogged: isValid});
         }
       }
 
@@ -46,7 +46,7 @@ class LogIn extends React.Component {
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({email:text})}/>
          </View>
-         {!this.state.isEmailValid ? <Text style={{color: 'red', marginBottom:10}}>Email is incorrect!</Text> : null}
+         <Text style={{color: 'red', marginBottom:10, display: this.state.isEmailValid ? 'none' : 'inline'}}>Email is incorrect!</Text>
          <View style={styles.inputView} >
             <TextInput  
             style={styles.inputText}
@@ -54,11 +54,11 @@ class LogIn extends React.Component {
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({password:text})}/>
          </View>
-        <TouchableOpacity style={styles.btn} onPress={() => this.state.isLoged ? this.props.navigation.goBack({...this.props}) : null}>
+        <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.goBack()}>
           <Text style={styles.loginText} onClick={this.signingUpHandler}>Signup</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.loginText} onClick={this.loginHandler}>LOGIN</Text>
+        <TouchableOpacity style={styles.btn} onPress={this.loginHandler}>
+          <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
       </View>
       </View>

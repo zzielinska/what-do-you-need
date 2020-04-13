@@ -22,7 +22,7 @@ function CustomDrawerContent({props, navigation}) {
       />
       <DrawerItem
         label="Your needs!"
-        onPress={() => navigation.navigate('Your needs!', {needAdded: false})}
+        onPress={() => navigation.navigate('Your needs!', {needAdded: false, isLogged: false})}
       />
       <DrawerItem
         label="Log in!"

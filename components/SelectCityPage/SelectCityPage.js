@@ -11,7 +11,6 @@ class SelectCityPage extends React.Component {
   }
   render() {
     const { navigation } = this.props;
-
     axios.get('https://what-do-you-need-f9f98.firebaseio.com/cities.json')
       .then(response => {
         this.setState({cities: response.data});
@@ -58,6 +57,6 @@ const styles = StyleSheet.create({
 
 export default function(props) {
   const navigation = useNavigation();
-
+  
   return <SelectCityPage {...props} navigation={navigation} />;
 }
