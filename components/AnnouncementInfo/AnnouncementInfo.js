@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import DrawerIcon from '../DrawerIcon/DrawerIcon';
+
+const {width, height} = Dimensions.get('window');
 
 class AnnouncementInfo extends React.Component {
   render(){
@@ -11,10 +13,14 @@ class AnnouncementInfo extends React.Component {
       <View>
         <DrawerIcon title={route.params.needs} />
         <View style={styles.container}>
-          <Text>{route.params.title}</Text>
-          <Text>{route.params.location}</Text>
-          <Text>{route.params.phoneNumber}</Text>
-          <Text>{route.params.needs}</Text>
+          <Text style={styles.title}>There's some more infos!</Text>
+          <View style={styles.btn}>
+            <Text style={styles.text}>Announcement Info: {route.params.title || 'Unknown'}</Text>
+            <Text style={styles.text}>User Location: {route.params.location || 'Unknown'}</Text>
+            <Text style={styles.text}>User Phone Number: {route.params.phoneNumber || 'Unknown'}</Text>
+            <Text style={styles.text}>Category: {route.params.needs}</Text>
+          </View>
+          <Text style={styles.more}>Check if you can help!</Text>
         </View>
       </View>
     );
@@ -23,23 +29,45 @@ class AnnouncementInfo extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    backgroundColor: '#bfbdbe',
+    height: height,
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
+  },
+  text:{
+    color: '#5e5c5d',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    paddingTop: width < 700 ? 15 : 25,
+    fontSize: width < 700 ? 14 : 20,
+  },
+  title:{
+    color: '#123c69',
+    fontWeight: 'bold',
+    fontSize: width < 700 ? 24 : 40,
+    paddingTop: width < 700 ? 30 : 50,
+    paddingBottom: width < 700 ? 10 : 30,
+  },  
+  more:{
+    color: '#ac3b61',
+    fontWeight: 'bold',
+    fontSize: width < 700 ? 20 : 30,
+    paddingTop: width < 700 ? 20 : 30,
   },
   btn:{
-    width:"50%",
-    backgroundColor:"#fb5b5a",
+    width:"90%",
+    backgroundColor:"#bab2b5",
+    borderColor: '#8c898b',
+    borderWidth: 2,
     borderRadius:20,
-    height:50,
+    height:'50%',
     alignItems:"center",
     justifyContent:"center",
     marginTop:20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize:20,
-    marginBottom:10
+    marginBottom:10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
   },
 });
 

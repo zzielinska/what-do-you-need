@@ -1,9 +1,11 @@
 import * as React from 'react';
 import axios from 'axios';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
 import Announcement from '../Announcement/Announcement';
 import DrawerIcon from '../DrawerIcon/DrawerIcon';
 import { useRoute } from '@react-navigation/native';
+
+const {width, height} = Dimensions.get('window');
 
 class AnnouncementsPage extends React.Component {
 
@@ -38,9 +40,11 @@ class AnnouncementsPage extends React.Component {
   }
 
     return (
-      <View style={styles.container}>
+      <View>
         <DrawerIcon title={route.params.city} />
+        <View style={styles.container}>
         {announcementsList}
+        </View>
       </View>
     );
   }
@@ -48,6 +52,9 @@ class AnnouncementsPage extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#bfbdbe',
+    height: height,
+    alignItems: 'center',
   },
 });
 

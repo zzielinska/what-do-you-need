@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import SelectCityPage from './components/SelectCityPage/SelectCityPage';
 import AnnouncementsPage from './components/AnnouncementsPage/AnnouncementsPage';
 import AnnouncementInfo from './components/AnnouncementInfo/AnnouncementInfo';
@@ -12,6 +12,8 @@ import AddNeed from './components/NeedsPage/AddNeed/AddNeed';
 import MoreInfo from './components/MoreInfo/MoreInfo';
 
 const Drawer = createDrawerNavigator();
+
+const {width, height} = Dimensions.get('window');
 
 function CustomDrawerContent({props, navigation}) {
   return (
@@ -39,7 +41,7 @@ function CustomDrawerContent({props, navigation}) {
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator drawerStyle={{backgroundColor: '#c6cbef', width: 240}} drawerContent={props => <CustomDrawerContent {...props} />}>
+      <Drawer.Navigator drawerStyle={styles.drawerStyle} drawerContent={props => <CustomDrawerContent {...props} />}>
         <Drawer.Screen name="Choose your city!"  component={SelectCityPage} />
         <Drawer.Screen name="Log in!"  component={LogIn} />
         <Drawer.Screen name="Your needs!"  component={NeedsPage} />
@@ -53,10 +55,8 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignContent: 'center',
-    justifyContent: 'center',
+  drawerStyle: {
+    backgroundColor: '#bab2b5',
+    width: width < 700 ? '70%' : '30%'
   },
 });

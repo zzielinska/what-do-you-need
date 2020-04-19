@@ -1,9 +1,10 @@
 import * as React from 'react';
 import axios from 'axios';
-import { View, StyleSheet, ActivityIndicator, Button, Text } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import DrawerIcon from '../DrawerIcon/DrawerIcon';
 
+const {width, height} = Dimensions.get('window');
 
 class SelectCityPage extends React.Component {
   state = {
@@ -20,13 +21,9 @@ class SelectCityPage extends React.Component {
     if(this.state.cities)
     citiesButtons = Object.values(this.state.cities).map(city => {
       return (
-        <Button
-            key={city}
-            buttonStyle={{margin: 20}}
-            title={city}
-            color= '#4287f5'
-            onPress={() => navigation.navigate('Announcements', {city: city})}
-          />
+        <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Announcements', {city: city})}>
+          <Text style={styles.text}>{city}</Text>
+        </TouchableOpacity>
       )
     })
 
@@ -44,14 +41,34 @@ class SelectCityPage extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#bfbdbe',
+    height: height,
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
   },
   title: {
-    color: '#144799',
-    fontSize: 24,
-    padding: 24,
+    color: '#123c69',
+    fontWeight: 'bold',
+    fontSize: width < 700 ? 24 : 40,
+    paddingTop: width < 700 ? 30 : 50,
+    paddingBottom: width < 700 ? 10 : 30,
+  },
+  btn:{
+    width:"50%",
+    backgroundColor:"#ac3b61",
+    borderRadius:20,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:20,
+    marginBottom:10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+  },
+  text: {
+    color: 'white',
+    fontSize:  width < 700 ? 18 : 30,
   }
 });
 

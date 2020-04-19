@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Dimensions } from 'react-native';
 import DrawerIcon from '../DrawerIcon/DrawerIcon';
 import { useNavigation } from '@react-navigation/native';
+
+const {width, height} = Dimensions.get('window');
 
 class LogIn extends React.Component {
     state={
@@ -55,7 +57,7 @@ class LogIn extends React.Component {
             onChangeText={text => this.setState({password:text})}/>
          </View>
         <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.goBack()}>
-          <Text style={styles.loginText} onClick={this.signingUpHandler}>Signup</Text>
+          <Text style={styles.loginText} onClick={this.signingUpHandler}>SIGNUP</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btn} onPress={this.loginHandler}>
           <Text style={styles.loginText}>LOGIN</Text>
@@ -76,38 +78,53 @@ export default function(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#003f5c',
+    backgroundColor: '#bfbdbe',
     alignItems: 'center',
     justifyContent: 'center',
   },
   title:{
-    fontWeight:"bold",
-    textAlign: "center",
-    fontSize:30,
-    color:"#fb5b5a",
-    marginBottom:40
+    color: '#123c69',
+    fontWeight: 'bold',
+    fontSize: width < 700 ? 24 : 40,
+    paddingBottom: width < 700 ? 30 : 40,
   },
   inputView:{
     width:"70%",
-    backgroundColor:"#465881",
+    backgroundColor:"#bab2b5",
     borderRadius:20,
     height:50,
     marginBottom:10,
     justifyContent:"center",
-    padding:20
+    padding:20,
+    borderColor: '#8c898b',
+    borderWidth: 1,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
   },
   inputText:{
     height:50,
-    color:"white"
+    color:"#5e5c5d"
+  },
+  loginText:{
+    color: 'white',
+    fontSize: width < 700 ? 14 : 24,
+    padding: width < 700 ? 10 : 30,
+    textAlign: "center"
   },
   btn:{
-    width:"50%",
-    backgroundColor:"#fb5b5a",
+    width:"40%",
+    backgroundColor:"#ac3b61",
     borderRadius:20,
     height:50,
     alignItems:"center",
     justifyContent:"center",
     marginTop:20,
-    marginBottom:10
+    marginBottom:10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
   },
 });

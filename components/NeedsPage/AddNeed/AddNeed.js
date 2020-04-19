@@ -1,9 +1,10 @@
 import * as React from 'react';
 import axios from 'axios';
-import { View, StyleSheet, TouchableOpacity, Picker, TextInput, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Picker, TextInput, Text, Dimensions } from 'react-native';
 import DrawerIcon from '../../DrawerIcon/DrawerIcon';
 import { useNavigation } from '@react-navigation/native';
-// import { useRoute } from '@react-navigation/native';
+
+const {width, height} = Dimensions.get('window');
 
 class AddNeed extends React.Component {
 
@@ -86,49 +87,62 @@ class AddNeed extends React.Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#003f5c',
+      backgroundColor: '#bfbdbe',
       alignItems: 'center',
       justifyContent: 'center',
     },
     title:{
       fontWeight:"bold",
-      fontSize:40,
-      color:"#fb5b5a",
+      fontSize: width < 700 ? 24 : 40,
+      color:"#123c69",
       marginBottom:40
     },
     inputView:{
       width:"70%",
-      backgroundColor:"#465881",
+      backgroundColor:"#bab2b5",
       borderRadius:20,
       height:40,
       marginBottom:10,
       justifyContent:"center",
-      padding:20
+      padding:20,
+      borderColor: '#8c898b',
+      borderWidth: 1,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.4,
+      shadowRadius: 2,
     },
     inputText:{
       height:50,
-      color:"white"
+      color:"#5e5c5d"
     },
     btn:{
-      width:"50%",
-      backgroundColor:"#fb5b5a",
+      width:"40%",
+      backgroundColor:"#ac3b61",
       borderRadius:20,
       height:40,
       alignItems:"center",
       justifyContent:"center",
-      marginTop:40,
-      marginBottom:10
+      marginBottom:10,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.4,
+      shadowRadius: 2,
     },
     twoPickers: {
-      width: 220,
+      width: width < 700 ? 220 : 500,
       height: 60,
       borderRadius:20,
-      backgroundColor: '#465881',
-      marginBottom:-200
+      backgroundColor: '#bab2b5',
+      marginBottom:-200,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.4,
+      shadowRadius: 2,
     },
     twoPickerItems: {
       height: 58,
-      color: 'black'
+      color: '#5e5c5d'
     },
 });
 

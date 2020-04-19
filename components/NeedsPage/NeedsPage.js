@@ -1,27 +1,36 @@
 import * as React from 'react';
 import axios from 'axios';
-import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Text, Dimensions, TouchableOpacity } from 'react-native';
 import Announcement from '../Announcement/Announcement';
 import DrawerIcon from '../DrawerIcon/DrawerIcon';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { Icon } from 'native-base';
+
+const {width, height} = Dimensions.get('window');
 
 class NeedsPage extends React.Component {
 
   state = {
     announcements: null,
     deletedAnn: [],
+    isLogged: true
   }
 
   getAnnoncements = () => {
     axios.get('https://what-do-you-need-f9f98.firebaseio.com/myAnnouncements.json')
       .then(response => {
         this.setState({announcements: response.data});
-      });
+    });
   }
 
   removeNeed = (choosenKey) => {
-    const newDeletedKeys = this.state.deletedAnn.concat(choosenKey);
-    this.setState({deletedAnn: newDeletedKeys});
+    axios.delete(`https://what-do-you-need-f9f98.firebaseio.com/myAnnouncements/${choosenKey}.json`)
+    .then(() => {
+      this.getAnnoncements();
+    })
+    .catch((err) => {
+        console.log(err.message);
+    })
   }
 
   componentDidMount() {
@@ -35,7 +44,7 @@ class NeedsPage extends React.Component {
     this.getAnnoncements();
   }
 
-  let announcementsList =  <ActivityIndicator size="large" color="#0000ff" />
+  let announcementsList = <Text style={styles.text}>Don't see any announcements...</Text>;
   if (this.state.announcements) {
     announcementsList = Object.entries(this.state.announcements).map(([key, value]) => {
       if (!this.state.deletedAnn.includes(key)) {
@@ -47,19 +56,27 @@ class NeedsPage extends React.Component {
             location={value.location}
             needs={value.needs}
           />
-          <Text onPress={() => this.removeNeed(key)}>Remove your need</Text>
+          <Text style={styles.remove} onPress={() => this.removeNeed(key)}>Remove this need <Icon name='trash'></Icon></Text>
           </React.Fragment>
         )
       }
       })
   }
-  let yourPage = <Text style={styles.btn} onPress={() => navigation.navigate('Log in!')}>Log In!</Text>
+  let yourPage = (
+  <View style={styles.container}>
+    <Text style={styles.title}>You need to log in!</Text>
+    <TouchableOpacity style={styles.btn}>
+      <Text style={styles.text} onPress={() => navigation.navigate('Log in!')}>Log In!</Text>
+    </TouchableOpacity>
+  </View>)
 
   if(this.state.isLogged) {
     yourPage = (
-    <View>
+    <View style={styles.container}>
       {announcementsList}
-      <Text style={styles.btn} onPress={() => navigation.navigate('Add Need')}>Add need</Text>
+      <TouchableOpacity style={styles.btn}>
+        <Text style={styles.text} onPress={() => navigation.navigate('Add Need')}>Add need</Text>
+      </TouchableOpacity>
     </View>)
   }
 
@@ -73,19 +90,42 @@ class NeedsPage extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#bfbdbe',
+    height: height,
+    alignItems: 'center',
+  },
+  title:{
+    color: '#123c69',
+    fontWeight: 'bold',
+    fontSize: width < 700 ? 24 : 40,
+    marginTop: 70,
+  },
   btn:{
-    width:"70%",
-    textAlign: "center",
-    fontSize:20,
-    margin: "auto",
-    backgroundColor:"#fb5b5a",
+    width:"40%",
+    backgroundColor:"#ac3b61",
     borderRadius:20,
-    height:30,
+    height:50,
     alignItems:"center",
     justifyContent:"center",
-    marginTop:40,
-    marginBottom:10
+    marginTop:20,
+    marginBottom:10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+    color: 'white',
+    fontSize:  width < 700 ? 18 : 30,
   },
+  text: {
+    color: 'white',
+    fontSize:  width < 700 ? 18 : 30,
+  },
+  remove: {
+    color: 'black',
+    textTransform: 'uppercase',
+    fontSize: 18,
+  }
 });
 
 export default function(props) {

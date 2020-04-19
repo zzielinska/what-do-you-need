@@ -1,6 +1,8 @@
 import React, {useCallback} from 'react';
-import { View, StyleSheet, Text, Button, Linking } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Linking, Dimensions } from 'react-native';
 import DrawerIcon from '../DrawerIcon/DrawerIcon';
+
+const {width, height} = Dimensions.get('window');
 
 const infoLink = "https://www.gov.pl/web/koronawirus";
 
@@ -14,7 +16,10 @@ const OpenURLButton = ({ url, children }) => {
     }
   }, [url]);
 
-  return <Button color='#607282' title={children} onPress={handlePress} />;
+  return (
+    <TouchableOpacity style={styles.btn}  onPress={handlePress}>
+      <Text style={styles.btnText}>{children}</Text>
+    </TouchableOpacity>);
 };
 
 export default class AnnouncementInfo extends React.Component {
@@ -41,34 +46,55 @@ export default class AnnouncementInfo extends React.Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#003f5c',
+      backgroundColor: '#bfbdbe',
       alignItems: 'center',
       justifyContent: 'center',
     },
     title:{
-      fontWeight:"bold",
-      textAlign: "center",
-      fontSize:30,
-      color:"#fb5b5a",
-      marginBottom:40
+      color: '#123c69',
+      fontWeight: 'bold',
+      fontSize: width < 700 ? 24 : 40,
+      paddingBottom: width < 700 ? 10 : 30,
     },
     text:{
-      fontWeight:"bold",
-      textAlign: "center",
-      fontSize:14,
-      color:"black",
-      marginBottom:10
+      color: '#5e5c5d',
+      fontSize: width < 700 ? 14 : 24,
+      padding: width < 700 ? 10 : 30,
+      textAlign: "center"
+    },
+    btnText:{
+      color: 'white',
+      fontSize: width < 700 ? 14 : 24,
+      padding: width < 700 ? 10 : 30,
+      textAlign: "center"
     },
     box:{
-        width: '90%',
-        borderWidth: 3,
-        borderStyle: 'solid',
-        borderColor: '#607282',
-        borderRadius: 23,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 15,
-        height:150,
-        margin: 10
+      width:"90%",
+      backgroundColor:"#bab2b5",
+      borderColor: '#8c898b',
+      borderWidth: 2,
+      borderRadius:20,
+      height:'30%',
+      alignItems:"center",
+      justifyContent:"center",
+      marginTop:20,
+      marginBottom:10,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.4,
+      shadowRadius: 2,
+    },
+    btn:{
+      width:"70%",
+      backgroundColor:"#ac3b61",
+      borderRadius:20,
+      height:'30%',
+      alignItems:"center",
+      justifyContent:"center",
+      marginBottom: width < 700 ? 10 : 30,
+      shadowColor: '#000',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.4,
+      shadowRadius: 2,
     },
 });
