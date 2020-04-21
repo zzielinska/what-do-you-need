@@ -1,6 +1,7 @@
 1. dodanie scrollowania do list
 2. ogarniecie logowania
-3. ograniczenia dla niezalogowanego
+3. ograniczenia dla niezalogowanego - DONE
 4. dodawanie do bazy z telefonu - DONE
 5. dodanie telefonu do formularza i info o ogłoszeniu - DONE
 6. usuwanie swoich ogłoszeń - DONE
+7. ograniczenia logowania są takie se - warto byłoby to zrobić porządnie

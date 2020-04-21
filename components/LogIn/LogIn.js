@@ -22,7 +22,7 @@ class LogIn extends React.Component {
         this.setState({isEmailValid: isValid, isLogged: isValid});
         if (isValid) {
           //todo:zrobic logowanie w firebase
-          this.props.navigation.navigate('Your needs!', {isLogged: true})
+          this.props.navigation.navigate('Your needs!', {isLogged: true, fromLoginForm: true})
         }
       }
 

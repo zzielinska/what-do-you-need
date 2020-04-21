@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { View, StyleSheet, ActivityIndicator, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity } from 'react-native';
 import Announcement from '../Announcement/Announcement';
 import DrawerIcon from '../DrawerIcon/DrawerIcon';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -13,7 +13,7 @@ class NeedsPage extends React.Component {
   state = {
     announcements: null,
     deletedAnn: [],
-    isLogged: true
+    isLogged: null,
   }
 
   getAnnoncements = () => {
@@ -31,6 +31,15 @@ class NeedsPage extends React.Component {
     .catch((err) => {
         console.log(err.message);
     })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.route.params.isLogged !== prevProps.route.params.isLogged && !prevProps.route.params.isLogged) {
+      this.setState({isLogged: this.props.route.params.isLogged});
+    }
+    if (this.props.route.params.fromLoginForm  && !this.state.isLogged) {
+      this.setState({isLogged: this.props.route.params.isLogged});
+    }
   }
 
   componentDidMount() {
@@ -65,8 +74,8 @@ class NeedsPage extends React.Component {
   let yourPage = (
   <View style={styles.container}>
     <Text style={styles.title}>You need to log in!</Text>
-    <TouchableOpacity style={styles.btn}>
-      <Text style={styles.text} onPress={() => navigation.navigate('Log in!')}>Log In!</Text>
+    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Log in!')}>
+      <Text style={styles.text}>Log In!</Text>
     </TouchableOpacity>
   </View>)
 
