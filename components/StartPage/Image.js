@@ -9,7 +9,7 @@ export default class CovidImage extends React.Component {
     return (
         <View>
             <Image style={styles.image} source={require('../../assets/covid.png')} />
-            <Text style={{fontSize: 10, textAlign: 'center'}}>covid-19 png from pngtree.com</Text>
+            <Text style={{fontSize: 7, textAlign: 'center'}}>covid-19 png from pngtree.com</Text>
         </View>
     );
   }
