@@ -1,6 +1,20 @@
 import  React, {useCallback} from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Dimensions, Text, Button } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity, Dimensions, Linking, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+const OpenURLButton = ({ url, children }) => {
+    const handlePress = useCallback(async () => {
+      const supported = await Linking.canOpenURL(url);
+      if (supported) {
+        await Linking.openURL(url);
+      }
+    }, [url]);
+  
+    return (
+      <TouchableOpacity onPress={handlePress}>
+        <Text style={{fontSize: 10, textAlign: 'center'}}>{children}</Text>
+      </TouchableOpacity>);
+  };
 
 const {width, height} = Dimensions.get('window');
 
@@ -9,7 +23,7 @@ export default class CovidImage extends React.Component {
     return (
         <View>
             <Image style={styles.image} source={require('../../assets/covid.png')} />
-            <Text style={{fontSize: 7, textAlign: 'center'}}>covid-19 png from pngtree.com</Text>
+            <OpenURLButton url={'https://pngtree.com/so/covid-19'}>covid-19 png from pngtree.com</OpenURLButton>
         </View>
     );
   }
