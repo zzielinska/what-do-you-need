@@ -20,7 +20,7 @@ class AnnouncementInfo extends React.Component {
             <Text style={styles.text}>User Phone Number: {route.params.phoneNumber || 'Unknown'}</Text>
             <Text style={styles.text}>Category: {route.params.needs}</Text>
           </View>
-          <Text style={styles.more}>Check if you can help!</Text>
+          <Text style={styles.more}>Contact if you can help!</Text>
         </View>
       </View>
     );

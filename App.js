@@ -10,6 +10,7 @@ import {createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@reac
 import NeedsPage from './components/NeedsPage/NeedsPage';
 import AddNeed from './components/NeedsPage/AddNeed/AddNeed';
 import MoreInfo from './components/MoreInfo/MoreInfo';
+import StartPage from './components/StartPage/StartPage';
 
 const Drawer = createDrawerNavigator();
 
@@ -42,6 +43,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator drawerStyle={styles.drawerStyle} drawerContent={props => <CustomDrawerContent {...props} />}>
+        <Drawer.Screen name="Start"  component={StartPage} />
         <Drawer.Screen name="Choose your city!"  component={SelectCityPage} />
         <Drawer.Screen name="Log in!"  component={LogIn} />
         <Drawer.Screen name="Your needs!"  component={NeedsPage} />

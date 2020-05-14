@@ -21,7 +21,6 @@ class LogIn extends React.Component {
         const isValid = this.validateEmail(this.state.email);
         this.setState({isEmailValid: isValid, isLogged: isValid});
         if (isValid) {
-          //todo:zrobic logowanie w firebase
           this.props.navigation.navigate('Your needs!', {isLogged: true, fromLoginForm: true})
         }
       }
@@ -30,8 +29,7 @@ class LogIn extends React.Component {
         const isValid = this.validateEmail(this.state.email);
         this.setState({isEmailValid: isValid});
         if (isValid) {
-          //todo:zrobic logowanie w firebase
-          this.setState({isLogged: isValid});
+          this.props.navigation.navigate('Your needs!', {isLogged: true, fromLoginForm: true})
         }
       }
 
