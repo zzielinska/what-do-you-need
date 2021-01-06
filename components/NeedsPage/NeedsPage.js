@@ -17,14 +17,14 @@ class NeedsPage extends React.Component {
   }
 
   getAnnoncements = () => {
-    axios.get('https://what-do-you-need-f9f98.firebaseio.com/myAnnouncements.json')
+    axios.get('/myAnnouncements.json')
       .then(response => {
         this.setState({announcements: response.data});
     });
   }
 
   removeNeed = (choosenKey) => {
-    axios.delete(`https://what-do-you-need-f9f98.firebaseio.com/myAnnouncements/${choosenKey}.json`)
+    axios.delete(`/myAnnouncements/${choosenKey}.json`)
     .then(() => {
       this.getAnnoncements();
     })
