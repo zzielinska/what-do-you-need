@@ -18,7 +18,7 @@ class AddNeed extends React.Component {
   }
 
   addHandler = () => {
-    axios.post('https://what-do-you-need-f9f98.firebaseio.com/myAnnouncements.json', {...this.state})
+    axios.post('/myAnnouncements.json', {...this.state})
       .then(() => {
         this.setState({needAdded:true})
       });
