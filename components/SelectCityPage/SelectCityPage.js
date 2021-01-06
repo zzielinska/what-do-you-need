@@ -12,7 +12,7 @@ class SelectCityPage extends React.Component {
   }
   render() {
     const { navigation } = this.props;
-    axios.get('https://what-do-you-need-f9f98.firebaseio.com/cities.json')
+    axios.get('/cities.json')
       .then(response => {
         this.setState({cities: response.data});
       });
