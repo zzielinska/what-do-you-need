@@ -14,7 +14,7 @@ class AnnouncementsPage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('https://what-do-you-need-f9f98.firebaseio.com/announcements.json')
+    axios.get('')
       .then(response => {
         this.setState({announcements: response.data});
       });
